@@ -24,15 +24,12 @@ function deleteBlock(id: string) {
 
 const { files, open, reset, onCancel, onChange } = useFileDialog({
   // accept: 'image/*', // Set to accept only image files
-  directory: false // Select directories instead of files if set true
+  directory: true // Select directories instead of files if set true
 })
 
 onChange(async (selectedFiles) => {
   if (!selectedFiles) return
-
-  const file = selectedFiles[0]
-
-  if (file) {
+  for (const file of selectedFiles) {
     const formData = new FormData()
     formData.append("file", file)
     const fileId = await $fetch("/api/assets", {
